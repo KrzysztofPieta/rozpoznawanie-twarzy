@@ -16,22 +16,27 @@
         android:id="@+id/imageView"
         android:layout_width="400dp"
         android:layout_height="364dp"
+        android:layout_alignStart="@+id/button"
+        android:layout_alignParentTop="true"
 
-        app:srcCompat="@android:color/darker_gray"
-        android:contentDescription="@string/todo" />
+        app:srcCompat="@android:color/darker_gray" />
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
 
-        android:text="@string/pobierz_z_galerii" />
+        android:text="pobierz z galerii" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/button"
+        android:layout_alignParentBottom="true"
 
-        android:text="@string/zr_b_zdj_cie" />
+        android:text="Zrób zdjęcie" />
 
 
 </LinearLayout>
