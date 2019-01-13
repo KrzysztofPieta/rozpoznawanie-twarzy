@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         obraz = findViewById(R.id.imageView);
         button = findViewById(R.id.button);
         camera = findViewById(R.id.button2);
-        myBitmap = BitmapFactory.decodeFile("sdcard/camera_app/cam_image.jpg");
+
 
         /*funkcja uzycia przycisku galerii*/
         button.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
                     float x2 = x1 + thisFace.getWidth();
                     float y2 = y1 + thisFace.getHeight();
                     tempCanvas.drawRoundRect(new RectF(x1, y1, x2, y2), 2, 2, myRectPaint);
-
-
 
                 }
                 obraz.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
@@ -132,39 +130,42 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
     }
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        switch (requestCode) {
+            case RESULT_LOAD_IMAGE: {
+                if (resultCode == RESULT_OK) {
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    obraz.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+                }
+                break;
+            }
+
+////                /*zdjecie z kamery*/
+//            case CAM_REQUEST:{
+//                String path = "sdcard/camera_app/cam_image.jpg";
+//                obraz.setImageDrawable(Drawable.createFromPath(path));
 //
-//        switch (requestCode) {
-//            case RESULT_LOAD_IMAGE: {
-//                if (resultCode == RESULT_OK) {
-//                    Uri selectedImage = data.getData();
-//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-//                    cursor.moveToFirst();
-//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                    String picturePath = cursor.getString(columnIndex);
-//                    cursor.close();
-//                    obraz.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-//
-//                }
 //                break;
 //            }
-//
-////                /*zdjecie z kamery*/
-////            case CAM_REQUEST:{
-////                String path = "sdcard/camera_app/cam_image.jpg";
-////                obraz.setImageDrawable(Drawable.createFromPath(path));
-////
-////                break;
-////            }
-//        }
+
+                default:
+                    break;
+        }
 //
 //
 //        /*tutaj wykrywanie wstawic i gicior*/
 //
 //
 //    }
-}
+}}
 /*siusiak*/
 
