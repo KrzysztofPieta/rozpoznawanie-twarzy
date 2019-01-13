@@ -34,11 +34,6 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     Button camera;
 
-    /*elementy cameraActivity*/
-    Button cameraButton;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,15 +46,6 @@ public class MainActivity extends AppCompatActivity {
         obraz = findViewById(R.id.imageView);
         button = findViewById(R.id.button);
         camera = findViewById(R.id.button2);
-        Bitmap myBitmap = BitmapFactory.decodeFile("sdcard/camera_app/cam_image.jpg");
-
-        Paint rectPaint = new Paint();
-        rectPaint.setStrokeWidth(5);
-        rectPaint.setColor(Color.YELLOW);
-        rectPaint.setStyle(Paint.Style.STROKE);
-
-
-
 
         /*funkcja uzycia przycisku galerii*/
         button.setOnClickListener((e)-> {
@@ -82,10 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
-
-
-
     }
 
 
@@ -97,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         File image_file = new File(folder, "cam_image.jpg");
-
         return image_file;
     }
 
@@ -123,20 +104,17 @@ public class MainActivity extends AppCompatActivity {
                     cursor.close();
                     obraz.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
-                    Bitmap tempBitmap = Bitmap.createBitmap(obraz.getWidth(),obraz.getHeight(), Bitmap.Config.RGB_565);
-                    Canvas canvas = new Canvas(tempBitmap);
-                    canvas.drawBitmap(tempBitmap,0,0,null);
-
-
-
+                    break;
                 }
 
                 /*to trzeba usunac zeby dzialalo z galerii*/
             case CAM_REQUEST:
                 String path = "sdcard/camera_app/cam_image.jpg";
                 obraz.setImageDrawable(Drawable.createFromPath(path));
+                break;
 
-
+            default :
+                break;
         }
 
     }
